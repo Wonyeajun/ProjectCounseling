@@ -1,0 +1,15 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'vlog/style.css' %}">
+
+<div class="container">
+    <h1>삭제 확인</h1>
+
+    <p>정말로 "{{ post.title }}" 게시물을 삭제할까요?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button class="danger" type="submit">삭제</button>
+    </form>
+
+    <a href="{% url 'post_list' %}">취소</a>
+</div>

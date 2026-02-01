@@ -1,0 +1,102 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap');
+
+:root {
+    --bg: #fdf6f3;
+    --main: #f4a7a1;
+    --sub: #ffd6c9;
+    --text: #4a3f3f;
+    --card: #ffffff;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.7;
+}
+
+/* 공통 레이아웃 */
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: var(--card);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+}
+
+/* 제목 */
+h1 {
+    color: #5c3d3d;
+    margin-bottom: 20px;
+}
+
+/* 게시글 카드 */
+.post {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px;
+    margin-bottom: 20px;
+    border-left: 6px solid var(--main);
+    transition: 0.2s;
+}
+
+.post:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+}
+
+.post-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.post-content {
+    margin: 10px 0;
+}
+
+/* 버튼 */
+a, button {
+    display: inline-block;
+    padding: 8px 16px;
+    background: var(--main);
+    color: white;
+    border-radius: 20px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    font-size: 0.9rem;
+    margin-right: 6px;
+    transition: 0.2s;
+}
+
+a:hover, button:hover {
+    background: #f28b85;
+}
+
+/* 삭제 버튼 */
+.danger {
+    background: #ff7b7b;
+}
+
+/* 입력창 */
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    margin-bottom: 16px;
+    font-size: 1rem;
+}
+
+/* 작은 글씨 */
+small {
+    color: #888;
+}

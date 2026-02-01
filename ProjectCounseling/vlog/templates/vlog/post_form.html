@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>글 작성</title>
+
+<style>
+body {
+    background: #fdf6f3;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+}
+
+button, a {
+    padding: 8px 16px;
+    background: #f4a7a1;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    text-decoration: none;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1>게시글 작성</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">저장</button>
+    </form>
+
+    <a href="{% url 'post_list' %}">취소</a>
+</div>
+</body>
+</html>

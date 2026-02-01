@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>삭제 확인</title>
+
+<style>
+body {
+    background: #fdf6f3;
+    font-family: 'Nanum Gothic', sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 60px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    text-align: center;
+}
+
+button, a {
+    padding: 10px 20px;
+    background: #f4a7a1;
+    color: white;
+    border-radius: 20px;
+    border: none;
+    text-decoration: none;
+}
+
+.danger {
+    background: #ff7b7b;
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+    <h1>삭제 확인</h1>
+    <p>"{{ post.title }}" 게시물을 삭제할까요?</p>
+
+    <form method="post">
+        {% csrf_token %}
+        <button class="danger" type="submit">삭제</button>
+    </form>
+    <br>
+    <a href="{% url 'post_list' %}">취소</a>
+</div>
+</body>
+</html>
