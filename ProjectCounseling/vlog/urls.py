@@ -7,6 +7,8 @@ urlpatterns = [
    path("<int:pk>/edit/",views.PostUpdate.as_view(), name="post_update"),
    path("<int:pk>/delete/", views.post_delete, name = 'post_delete'),
    path("signup/", views.signup, name="signup"),
+   path("comments/<int:pk>/edit", views.comment_edit, name="comment_edit"),
+   path("comments/<int:pk>/delete", views.comment_delete, name="comment_delete"),
 ]
 
 
