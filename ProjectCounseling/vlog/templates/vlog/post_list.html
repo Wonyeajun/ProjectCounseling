@@ -1,46 +1,75 @@
-<!DOGTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-    <meta charset="UTF-8" />
-    <title>게시물 목록</title>
+ <meta charset="UTF-8" />
+ <title>게시물 목록</title>
 </head>
 <body>
+{% if user.is_authenticated %}
+ <div style="position: absolute; top : 10px; right 10px;">
+   <a href="{% url 'profile_detail' user.username %}">
+     <img src="{{ user.profile.image.url }}" alt="profile" width="32" height="32">
+     {{ user.username }}
+   </a>
+ </div>
+{% endif %}
 <h1>게시물 목록</h1>
+
 
 {% if user.is_authenticated %}
 <p>
-    <a href="{% url 'post_create' %}">글 작성</a>
+ <a href="{% url 'post_create' %}">글 작성</a>
 
-    <form method="post" action="{% url 'logout' %}" style="display:inline;">
-      {% csrf_token %}
-      <button type="submit">로그아웃</button>
-    </form>
+
+ <form method="post" action="{% url 'logout' %}" style="display:inline;">
+   {% csrf_token %}
+   <button type="submit">로그아웃</button>
+ </form>
 </p>
 {% else %}
-  <p>
-      <a href="{% url 'login' %}?next={% url 'post_list' %}">로그인</a>
-      <a href="{% url 'signup' %}">회원가입</a>
-  </p>
+ <p>
+   <a href="{% url 'login' %}?next={% url 'post_list' %}">로그인</a>
+   <a href="{% url 'signup' %}">회원가입</a>
+ </p>
 {% endif %}
 <hr>
 
+
 <ul>
-    {% for post in posts %}
-    <li>
-        <strong>{{ post.title }}</strong>
-        <a href="{% url 'post_detail' post.pk %}">세부 보기</a>
-        <br>
-        {{ post.content }}
-        <br>
-        <small>{{ post.created_at }}</small>
-        <br>
-        <small>{{ post.author }}</small>
-    </li>
-    <hr>
-    {% empty %}
-    <li>게시글이 없습니다.</li>
-    {% endfor %}
+ {% for post in posts %}
+ <li>
+   <strong>{{ post.title }}</strong>
+   <a href="{% url 'post_detail' post.pk %}">세부 보기</a>
+   <br>
+   {{ post.content }}
+   <br>
+   <small>{{ post.created_at }}</small>
+   <br>
+{% if post.author %}
+ <a href="{% url 'profile_detail' post.author.username %}">
+   {% if post.author.profile and post.author.profile.image %}
+     <img src="{{ post.author.profile.image.url }}" alt="profile" width="32" height="32">
+   {% else %}
+     <img src="/media/profiles/unset.png" alt="profile" width="32" height="32">
+   {% endif %}
+   {{ post.author.username }}
+ </a>
+{% endif %}
+
+
+ </li>
+ <hr>
+ {% empty %}
+ <li>게시글이 없습니다.</li>
+ {% endfor %}
 </ul>
+
+
+
 
 </body>
 </html>
+
+
+
+
