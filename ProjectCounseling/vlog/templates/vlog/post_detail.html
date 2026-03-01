@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load dict_utils %}
 <html lang="ko">
 <head>
  <meta charset="UTF-8">
@@ -9,19 +10,41 @@
 
  <h1>{{ post.title }}</h1>
  <p>{{ post.content }}</p>
+ <div>
+   <strong>태그:</strong>
+   {% for t in post.tags.all %}
+     <a href="{% url 'post_list' %}?tag={{ t.name }}">{{ t.name }}</a>
+   {% empty %}
+     <span>없음</span>
+   {% endfor %}
+ </div>
+
+
+ <p>
+   <a href="{% url 'post_vote' post.pk 'up' %}">👍</a>
+   <span>{{ post_up }}</span>
+
+
+
+
+   <a href="{% url 'post_vote' post.pk 'down' %}">👎</a>
+   <span>{{ post_down }}</span>
+ </p>
+
+
  <p>
    <small>작성일 : {{ post.created_at }}</small>
    {% if post.author %}
      <br>
    <strong>
-     <a href="{% url 'profile_detail' post.author.username %}">
-   {% if post.author.profile and post.author.profile.image %}
-     <img src="{{ post.author.profile.image.url }}" alt="profile" width="32" height="32">
-   {% else %}
-     <img src="/media/profiles/unset.png" alt="profile" width="32" height="32">
-   {% endif %}
-   {{ post.author.username }}
- </a>
+       <a href="{% url 'profile_detail' post.author.username %}">
+         {% if post.author.profile and post.author.profile.image %}
+           <img src="{{ post.author.profile.image.url }}" alt="profile" width="32" height="32">
+         {% else %}
+           <img src="/media/profiles/unset.png" alt="profile" width="32" height="32">
+         {% endif %}
+         {{ post.author.username }}
+       </a>
    </strong>
    {% endif %}
  </p>
@@ -37,6 +60,12 @@
      <a href="{% url 'post_delete' post.pk %}">삭제</a>
    </p>
  {% endif %}
+
+
+
+
+
+
 
 
  <hr>
@@ -69,18 +98,26 @@
    {% for c in comments %}
      <li>
        <strong>
-           <a href="{% url 'profile_detail' c.author.username %}">
-   {% if c.author.profile and c.author.profile.image %}
-     <img src="{{ c.author.profile.image.url }}" alt="profile" width="32" height="32">
-   {% else %}
-     <img src="/media/profiles/unset.png" alt="profile" width="32" height="32">
-   {% endif %}
-   {{ c.author.username }}
- </a>
+         <a href="{% url 'profile_detail' c.author.username %}">
+
+
+         {% if c.author.profile and c.author.profile.image %}
+           <img src="{{ c.author.profile.image.url }}" alt="profile" width="32" height="32">
+         {% else %}
+           <img src="/media/profiles/unset.png" alt="profile" width="32" height="32">
+         {% endif %}
+         {{ c.author.username }}
+       </a>
        </strong> :
        {{ c.content }}
        <br>
        <small>{{ c.created_at }}</small>
+     <span style = "margin-left:10px;">
+         <a href="{% url 'comment_vote' c.pk 'up' %}">👍</a>
+         <span>{{ comment_up|get_item:c.id}}</span>
+         <a href="{% url 'comment_vote' c.pk 'down' %}">👎</a>
+         <span>{{ comment_down|get_item:c.id}}</span>
+     </span>
 
 
        {% if user.is_authenticated and c.author == user %}
